@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: projectms
+  name: projectms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: projectms
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: projectms
+    spec:
+      containers:
+      - env:
+        - name: securityms.service.address
+          value: http://securityms:8081
+        - name: alpha.cluster.address
+          value: alphaserver:8080
+        - name: spring.datasource.password
+          value: 
+        - name: spring.datasource.url
+          value: 
+        - name: spring.datasource.username
+          value: 
+        image: raulramosm.azurecr.io/projectms:v3
+        imagePullPolicy: Always
+        name: projectms
+        ports:
+        - containerPort: 8082
+        resources: {}
+      hostname: projectms
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: projectms
+  name: projectms
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "8082"
+      port: 8082
+      targetPort: 8082
+  selector:
+    io.kompose.service: projectms
+status:
+  loadBalancer: {}
+---

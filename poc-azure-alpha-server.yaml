@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: alphaserver
+  name: alphaserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: alphaserver
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: alphaserver
+    spec:
+      containers:
+      - env:
+        - name: alpha.server.port-alt
+          value: "8080"
+        - name: alpha.server.port
+          value: "8080"
+        - name: alpha.feature.akka.enabled
+          value: "true"
+        - name: management.security.enabled
+          value: "false"
+        - name: alpha.feature.akka.transaction.repository.type
+          value: elasticsearch
+        - name: spring.data.elasticsearch.cluster-name
+          value: docker-cluster
+        - name: spring.data.elasticsearch.cluster-nodes
+          value: elasticsearch:9300
+        - name: spring.datasource.password
+          value: 
+        - name: spring.datasource.url
+          value: 
+        - name: spring.datasource.username
+          value: 
+        - name: spring.profiles.active
+          value: prd
+        - name: JAVA_OPTS
+          value: -Dalpha.server.port=8080
+        image: raulramosm.azurecr.io/alpha-server:v1
+        imagePullPolicy: ""
+        name: alphaserver
+        ports:
+        - containerPort: 8080
+        - containerPort: 8090
+        resources: {}
+      hostname: alphaserver
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: alphaserver
+  name: alphaserver
+spec:
+  type: LoadBalancer
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+  - name: "8090"
+    port: 8090
+    targetPort: 8090
+  selector:
+    io.kompose.service: alphaserver
+status:
+  loadBalancer: {}
+---
