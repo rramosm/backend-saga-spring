@@ -41,7 +41,7 @@ spec:
           value: prd
         - name: JAVA_OPTS
           value: -Dalpha.server.port=8080
-        image: raulramosm.azurecr.io/alpha-server:v1
+        image: firstregistrypoc.azurecr.io/alpha-server:v1
         imagePullPolicy: ""
         name: alphaserver
         ports:
