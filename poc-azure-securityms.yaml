@@ -27,7 +27,7 @@ spec:
           value: 
         - name: spring.datasource.username
           value: 
-        image: raulramosm.azurecr.io/securityms:v3
+        image: firstregistrypoc.azurecr.io/securityms:v1
         imagePullPolicy: Always
         name: securityms
         ports:
