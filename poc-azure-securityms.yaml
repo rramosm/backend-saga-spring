@@ -27,6 +27,8 @@ spec:
           value: 
         - name: spring.datasource.username
           value: 
+        - name: spring.datasource.maxActive
+          value: "5"
         image: firstregistrypoc.azurecr.io/securityms:v1
         imagePullPolicy: Always
         name: securityms
