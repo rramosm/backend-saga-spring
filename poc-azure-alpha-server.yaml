@@ -41,8 +41,10 @@ spec:
           value: prd
         - name: JAVA_OPTS
           value: -Dalpha.server.port=8080
+        - name: spring.datasource.maxActive
+          value: "5"          
         image: firstregistrypoc.azurecr.io/alpha-server:v1
-        imagePullPolicy: ""
+        imagePullPolicy: Always
         name: alphaserver
         ports:
         - containerPort: 8080
