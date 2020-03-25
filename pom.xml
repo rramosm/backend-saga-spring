@@ -6,7 +6,6 @@
   <groupId>org.apache.servicecomb.pack.demo</groupId>
   <version>0.6.0-SNAPSHOT</version>
   <modelVersion>4.0.0</modelVersion>
-
   <name>Pack::Demo::Spring-Demo</name>
   <packaging>pom</packaging>
 
